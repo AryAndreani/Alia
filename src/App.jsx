@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { AppProvider, useApp } from './lib/AppContext'
 import { globalCSS, dustBackground, C } from './lib/theme'
-import Auth from './pages/Auth'
+import Auth from './pages/auth'
 import Onboarding from './pages/Onboarding'
 import Home from './pages/Home'
 import QuestZone from './pages/QuestZone'
