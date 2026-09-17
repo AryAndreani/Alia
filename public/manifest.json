@@ -1,0 +1,17 @@
+{
+  "name": "Alia",
+  "short_name": "Alia",
+  "description": "Your degree, told as a story.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07070F",
+  "theme_color": "#07070F",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
