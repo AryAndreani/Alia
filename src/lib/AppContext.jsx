@@ -24,6 +24,7 @@ const QUOTES = [
 
 const DEFAULTS = {
   onboarded: false,
+  privacyAccepted: false,
   profile: { name: '', university: '', course: '', startYear: new Date().getFullYear() },
   exams: [],
   sessions: [],
@@ -61,6 +62,7 @@ export function AppProvider({ children }) {
 
   // --- App data (sincronizzato su Firestore) ---
   const [onboarded, setOnboarded] = useState(DEFAULTS.onboarded)
+  const [privacyAccepted, setPrivacyAccepted] = useState(DEFAULTS.privacyAccepted)
   const [profile, setProfile] = useState(DEFAULTS.profile)
   const [exams, setExams] = useState(DEFAULTS.exams)
   const [sessions, setSessions] = useState(DEFAULTS.sessions)
@@ -85,6 +87,7 @@ export function AppProvider({ children }) {
 
       if (!fbUser) {
         setOnboarded(DEFAULTS.onboarded)
+        setPrivacyAccepted(DEFAULTS.privacyAccepted)
         setProfile(DEFAULTS.profile)
         setExams(DEFAULTS.exams)
         setSessions(DEFAULTS.sessions)
@@ -109,6 +112,7 @@ export function AppProvider({ children }) {
         if (snap.exists()) {
           const data = snap.data()
           setOnboarded(data.onboarded ?? DEFAULTS.onboarded)
+          setPrivacyAccepted(data.privacyAccepted ?? DEFAULTS.privacyAccepted)
           setProfile(data.profile ?? DEFAULTS.profile)
           setExams(data.exams ?? DEFAULTS.exams)
           setSessions(data.sessions ?? DEFAULTS.sessions)
@@ -125,6 +129,7 @@ export function AppProvider({ children }) {
         } else {
           await setDoc(ref, DEFAULTS)
           setOnboarded(DEFAULTS.onboarded)
+          setPrivacyAccepted(DEFAULTS.privacyAccepted)
           setProfile(DEFAULTS.profile)
           setExams(DEFAULTS.exams)
           setSessions(DEFAULTS.sessions)
@@ -157,6 +162,7 @@ export function AppProvider({ children }) {
   }, [user])
 
   useEffect(() => { syncField('onboarded', onboarded) }, [onboarded, syncField])
+  useEffect(() => { syncField('privacyAccepted', privacyAccepted) }, [privacyAccepted, syncField])
   useEffect(() => { syncField('profile', profile) }, [profile, syncField])
   useEffect(() => { syncField('exams', exams) }, [exams, syncField])
   useEffect(() => { syncField('sessions', sessions) }, [sessions, syncField])
@@ -325,6 +331,7 @@ export function AppProvider({ children }) {
       user, authLoading, dataLoading, authError,
       signUp, signIn, logOut,
       onboarded, setOnboarded,
+      privacyAccepted, setPrivacyAccepted,
       profile, setProfile,
       exams, addExam, passExam, updateExam, setExams,
       sessions, addSession,

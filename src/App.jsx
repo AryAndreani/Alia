@@ -8,6 +8,7 @@ import QuestZone from './pages/QuestZone'
 import PanicRoom from './pages/PanicRoom'
 import Profile from './pages/Profile'
 import BottomNav from './components/BottomNav'
+import PrivacyConsent from './components/PrivacyConsent'
 
 function LoadingScreen() {
   return (
@@ -51,13 +52,14 @@ function AppBackdrop({ isWide }) {
 }
 
 function AppShell() {
-  const { user, authLoading, dataLoading, onboarded } = useApp()
+  const { user, authLoading, dataLoading, onboarded, privacyAccepted, setPrivacyAccepted } = useApp()
   const [tab, setTab] = useState('home')
   const isWide = useIsWide()
 
   if (authLoading) return <LoadingScreen />
   if (!user) return <Auth />
   if (dataLoading) return <LoadingScreen />
+  if (!privacyAccepted) return <PrivacyConsent onAccept={() => setPrivacyAccepted(true)} />
   if (!onboarded) return <Onboarding />
 
   return (
